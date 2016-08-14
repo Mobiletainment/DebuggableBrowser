@@ -1,6 +1,7 @@
 package net.pertiller.debuggablebrowser;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -29,7 +30,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         webView = (WebView) findViewById(R.id.webView);
         reload = (Button) findViewById(R.id.reload);
         reload.setOnClickListener(new Button.OnClickListener(){
@@ -88,6 +91,17 @@ public class MainActivity extends ActionBarActivity {
                 return false;
             }
         });
+
+        Intent intent = getIntent();
+
+        if (intent != null) {
+            String data = intent.getDataString();
+
+            if (data != null) {
+                location.setText(data);
+                openLocation();
+            }
+        }
     }
 
     public void openLocation() {
